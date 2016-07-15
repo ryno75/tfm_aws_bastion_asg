@@ -31,6 +31,7 @@ variable "subnet_ids" {
 
 variable "azs" {
   // highly recommend using the subnet_ids variable instead
+  default = ""
   description = "Comma separated list of Availability Zones"
 }
 
