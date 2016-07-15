@@ -21,29 +21,29 @@ resource "template_file" "user_data" {
 }
 
 resource "aws_launch_configuration" "aslc" {
-  name = "${var.aslc_name}"
-  image_id = "${var.ami_id}"
-  instance_type = "${var.instance_type}"
-  iam_instance_profile = "${var.instance_profile}"
-  key_name = "${var.key_name}"
-  security_groups = ["${var.security_group}"]
-  user_data = "${template_file.user_data.rendered}"
+  name                        = "${var.aslc_name}"
+  associate_public_ip_address = true
+  iam_instance_profile        = "${var.instance_profile}"
+  image_id                    = "${var.ami_id}"
+  instance_type               = "${var.instance_type}"
+  key_name                    = "${var.key_name}"
+  security_groups             = ["${var.security_group}"]
+  user_data                   = "${template_file.user_data.rendered}"
 }
 
 resource "aws_autoscaling_group" "asg" {
-  name = "${var.asg_name}"
-  associate_public_ip_address = true
-  availability_zones = ["${split(",", var.azs)}"]
-  vpc_zone_identifier = ["${split(",", var.subnet_ids)}"]
-  launch_configuration = "${aws_launch_configuration.aslc.id}"
-  max_size = 1
-  min_size = 1
-  desired_capacity = 1
-  health_check_type = "EC2"
+  name                  = "${var.asg_name}"
+  availability_zones    = ["${split(",", var.azs)}"]
+  health_check_type     = "EC2"
+  desired_capacity      = 1
+  launch_configuration  = "${aws_launch_configuration.aslc.id}"
+  max_size              = 1
+  min_size              = 1
   tag {
     key = "Name"
     value = "${var.bastion_name}"
     propagate_at_launch = true
   }
+  vpc_zone_identifier   = ["${split(",", var.subnet_ids)}"]
 }
 
