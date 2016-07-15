@@ -33,7 +33,7 @@ resource "aws_launch_configuration" "aslc" {
 
 resource "aws_autoscaling_group" "asg" {
   name                  = "${var.asg_name}"
-  availability_zones    = compact(["${split(",", var.azs)}"])
+  availability_zones    = "${compact(["${split(",", var.azs)}"])}"
   health_check_type     = "EC2"
   desired_capacity      = 1
   launch_configuration  = "${aws_launch_configuration.aslc.id}"
