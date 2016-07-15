@@ -4,7 +4,6 @@
 
 variable "aws_region" {}
 variable "ami_id" {}
-variable "bastion_name" {}
 variable "instance_type" {}
 variable "instance_profile" {}
 variable "key_name" {}
@@ -18,6 +17,11 @@ variable "aslc_name" {
 variable "asg_name" {
   default = "bastion_autoscaling_group"
   description = "AutoScaling Group Name"
+}
+
+variable "bastion_name" {
+  default = "bastion"
+  description = "Bastion Instance Name"
 }
 
 variable "health_check_type" {
