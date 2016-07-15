@@ -9,7 +9,7 @@
 // - A template file for the Launch Configuration UserData (user_data)
 
 resource "aws_eip" "eip" {
-  associate_with_vpc = true
+  vpc = true
 }
 
 resource "template_file" "user_data" {
@@ -32,6 +32,7 @@ resource "aws_launch_configuration" "aslc" {
 
 resource "aws_autoscaling_group" "asg" {
   name = "${var.asg_name}"
+  associate_public_ip_address = true
   availability_zones = ["${split(",", var.azs)}"]
   vpc_zone_identifier = ["${split(",", var.subnet_ids)}"]
   launch_configuration = "${aws_launch_configuration.aslc.id}"
