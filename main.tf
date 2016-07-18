@@ -15,8 +15,9 @@ resource "aws_eip" "eip" {
 resource "template_file" "user_data" {
   template = "${file("${path.module}/user_data.tpl")}"
   vars {
-    eip_id = "${aws_eip.eip.id}"
     aws_region = "${var.aws_region}"
+    eip_id     = "${aws_eip.eip.id}"
+    suffix     = "${var.user_data}"
   }
 }
 

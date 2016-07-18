@@ -10,31 +10,43 @@ variable "key_name" {}
 variable "security_group" {}
 
 variable "aslc_name" {
-  default = "bastion_launch_config"
+  type        = "string"
+  default     = "bastion_launch_config"
   description = "AutoScaling Launch Configuration Name"
 }
 
 variable "asg_name" {
-  default = "bastion_autoscaling_group"
+  type        = "string"
+  default     = "bastion_autoscaling_group"
   description = "AutoScaling Group Name"
 }
 
 variable "bastion_name" {
-  default = "bastion"
+  type        = "string"
+  default     = "bastion"
   description = "Bastion Instance Name"
 }
 
 variable "health_check_type" {
-  default = "EC2"
+  type        = "string"
+  default     = "EC2"
   description = "AutoScaling Health Check Type (EC2 or ELB)"
 }
 
 variable "subnet_ids" {
+  type        = "string"
   description = "Comma separated list of VPC subnet IDs"
 }
 
 variable "azs" {
+  type        = "string"
   // highly recommend using the subnet_ids variable instead
-  default = ""
+  default     = ""
   description = "Comma separated list of Availability Zones"
+}
+
+variable "user_data" {
+  type        = "string"
+  default     = ""
+  description = "AutoScaling Launch Config UserData"
 }
